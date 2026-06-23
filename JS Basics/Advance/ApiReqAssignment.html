@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Assignment</title>
+  </head>
+  <body>
+    <button id="fetchBtn">Fetch Details</button>
+    <div id="cardContainer"></div>
+  </body>
+  <script>
+    const reqURL = "https://api.github.com/users/hiteshchoudhary";
+
+
+    document.getElementById("fetchBtn").addEventListener("click", function () {
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", reqURL);
+
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+          const data = JSON.parse(this.responseText);
+
+          const card = `<div style="margin-top: 20px; padding: 20px; border: 1px solid #333; border-radius: 10px; display: inline-block;">
+                <img src = "${data.avatar_url}" alt = alt="Profile Photo" style="width: 150px; border-radius: 50%;" />
+                <h2>Followers: ${data.followers}</h2>
+              </div>`;
+          document.getElementById('cardContainer').innerHTML = card;
+        }
+      };
+      xhr.send();
+    });
+  </script>
+</html>
